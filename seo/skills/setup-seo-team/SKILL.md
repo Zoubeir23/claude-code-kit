@@ -28,7 +28,7 @@ Ensuite :
 1. Restreins les droits : `chmod 600 ~/.claude/mcp-gsc/service_account.json`
 2. Si `~/.claude` est un dépôt Git, vérifie que la clé est ignorée : `git -C ~/.claude check-ignore -q mcp-gsc/service_account.json`. Sinon, ajoute `mcp-gsc/` au `.gitignore` avant toute autre action.
 3. Affiche l'adresse du compte de service, et uniquement elle : `jq -r .client_email ~/.claude/mcp-gsc/service_account.json`
-4. Demande à l'utilisateur d'ajouter cette adresse dans Google Search Console, Paramètres, Utilisateurs et autorisations, avec le rôle **Propriétaire** (le serveur n'a besoin que de lecture, mais le rôle Complet suffit aussi). Attends sa confirmation.
+4. Demande à l'utilisateur d'ajouter cette adresse dans Google Search Console, Paramètres, Utilisateurs et autorisations, avec le rôle **Complet** (c'est ce que demande le README du serveur ; le rôle Propriétaire fonctionne aussi). Attends sa confirmation.
 
 ## 3. Serveur MCP Search Console
 
