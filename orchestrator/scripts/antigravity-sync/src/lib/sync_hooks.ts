@@ -9,7 +9,10 @@ const FINISH_SOUND_FILE = join(CLAUDE_DIRECTORY, "song/finish.mp3");
 
 // Only portable hooks are synced. ECC session/cost hooks depend on the Claude Code transcript format,
 // and Antigravity has no Notification or PreCompact events.
-const SYNCED_HOOKS = {
+// A hook is registered only when the file it runs exists, so a fresh install gets no broken hook.
+const COMMAND_VALIDATOR_FILE = join(CLAUDE_DIRECTORY, "scripts/command-validator/src/cli.ts");
+
+const COMMAND_VALIDATOR_HOOK = {
 	"claude-command-validator": {
 		PreToolUse: [
 			{
@@ -24,6 +27,9 @@ const SYNCED_HOOKS = {
 			},
 		],
 	},
+};
+
+const FINISH_SOUND_HOOK = {
 	"claude-finish-sound": {
 		Stop: [
 			{
@@ -35,12 +41,20 @@ const SYNCED_HOOKS = {
 	},
 };
 
+function selectSyncedHooks() {
+	return {
+		...(existsSync(COMMAND_VALIDATOR_FILE) ? COMMAND_VALIDATOR_HOOK : {}),
+		...(process.platform === "darwin" && existsSync(FINISH_SOUND_FILE) ? FINISH_SOUND_HOOK : {}),
+	};
+}
+
 export function syncHooks(): string[] {
+	const syncedHooks = selectSyncedHooks();
 	const existingHooks = existsSync(ANTIGRAVITY_HOOKS_FILE)
 		? JSON.parse(readFileSync(ANTIGRAVITY_HOOKS_FILE, "utf8") || "{}")
 		: {};
-	const mergedHooks = { ...existingHooks, ...SYNCED_HOOKS };
+	const mergedHooks = { ...existingHooks, ...syncedHooks };
 	writeGeneratedFile(ANTIGRAVITY_HOOKS_FILE, `${JSON.stringify(mergedHooks, null, 2)}\n`);
-	console.log(`hooks: ${Object.keys(SYNCED_HOOKS).join(", ")} -> ${ANTIGRAVITY_HOOKS_FILE}`);
+	console.log(`hooks: ${Object.keys(syncedHooks).join(", ") || "none"} -> ${ANTIGRAVITY_HOOKS_FILE}`);
 	return [];
 }
