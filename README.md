@@ -6,7 +6,7 @@ Ma configuration Claude Code, prête à copier : une équipe SEO connectée à G
 |---|---|
 | `seo/` | 32 agents SEO + le skill `setup-seo-team` qui installe le serveur MCP Google Search Console |
 | `orchestrator/` | Skill `orchestrator`, runner et synchronisation vers Antigravity CLI (`agy`) |
-| `review/agents/` | 16 agents : revue de code, sécurité, TDD, planification, un relecteur par langage |
+| `review/agents/` | 18 agents : revue de code, sécurité, TDD, planification, tests E2E, documentation, un relecteur par langage |
 | `config/` | Modèle de `CLAUDE.md` et règles de codage (common + 11 langages) |
 
 ## Installer l'équipe SEO avec Claude Code
