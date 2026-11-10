@@ -16,6 +16,9 @@ interface SkillSource {
 }
 
 function listSkillNames(skillsDirectory: string): readonly string[] {
+	if (!existsSync(skillsDirectory)) {
+		return [];
+	}
 	return readdirSync(skillsDirectory).filter((entryName) => {
 		const entryPath = join(skillsDirectory, entryName);
 		if (!existsSync(entryPath)) {
@@ -100,6 +103,9 @@ function convertCommands(knownSkillNames: Set<string>): string[] {
 	const generatedPaths: string[] = [];
 	const skippedNames: string[] = [];
 	for (const source of commandSources) {
+		if (!existsSync(source.directory)) {
+			continue;
+		}
 		for (const fileName of readdirSync(source.directory).filter((name) => name.endsWith(".md"))) {
 			const skillName = `${source.namePrefix}${basename(fileName, ".md")}`;
 			if (isExcludedSkill(skillName)) {
