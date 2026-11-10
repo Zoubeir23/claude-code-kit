@@ -27,7 +27,7 @@ mkdir -p ~/.claude/rules && cp -R config/rules/* ~/.claude/rules/
 cp config/CLAUDE.md ~/.claude/CLAUDE.md   # à adapter, puis à renommer si tu as déjà un CLAUDE.md
 ```
 
-L'orchestrateur demande Antigravity CLI et Bun : voir `orchestrator/scripts/antigravity-sync/README.md`.
+L'orchestrateur demande Antigravity CLI et Bun : voir [orchestrator/README.md](orchestrator/README.md).
 
 ## Sécurité
 
