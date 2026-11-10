@@ -18,7 +18,7 @@ Ne jamais coder directement sur une branche existante, même si elle semble lié
 ## Commits
 
 - Un changement logique = un commit, fait au fil du travail et non en bloc à la fin.
-- Format du message : `<code>-titre-court`.
+- Format du message : choisis-en un et garde-le. Par défaut, `rules/common/git-workflow.md` utilise `<type>: <description>` (feat, fix, refactor, docs, test, chore, perf, ci). Mon format personnel est `<code>-titre-court`, avec le numéro de la tâche en préfixe.
 - Jamais de commit vide ou artificiel : chaque commit doit avoir un sens seul.
 - Avant d'ouvrir la PR : `git rev-list --count main..HEAD`.
 
